@@ -20,3 +20,7 @@ install:
 test_script:
   - py.test --cov=./ tests
   
+after_test:
+ - pip install codecov
+ - codecov
+  
