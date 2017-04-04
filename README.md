@@ -1,4 +1,4 @@
-https://ci.appveyor.com/api/projects/status/github/DTOcean/polite?branch=master&svg=true
+![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/DTOcean/polite?branch=master&svg=true)
 
 # polite
 
