@@ -4,6 +4,12 @@ environment:
   matrix:
     - PYTHON_VERSION: 2.7
       MINICONDA: C:\Miniconda
+      ARCH: "32"
+      
+    - PYTHON_VERSION: 2.7
+      MINICONDA:C:\Miniconda-x64
+      ARCH: "64"
+
 
 init:
   - "ECHO %PYTHON_VERSION% %MINICONDA%"
@@ -13,8 +19,8 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update --quiet conda
   - conda info --all
-  - "conda create --quiet --name conda-env-%PYTHON_VERSION% python=%PYTHON_VERSION% --file requirements-conda.txt"
-  - activate conda-env-%PYTHON_VERSION%
+  - "conda create --quiet --name conda-env-%PYTHON_VERSION%-%ARCH% python=%PYTHON_VERSION% --file requirements-conda.txt"
+  - activate conda-env-%PYTHON_VERSION%-%ARCH%
   - python setup.py develop
   
 test_script:
