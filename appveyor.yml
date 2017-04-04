@@ -18,5 +18,5 @@ install:
   - python setup.py develop
   
 test_script:
-  - py.test tests
+  - py.test --cov=./ tests
   
