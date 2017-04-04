@@ -1,0 +1,22 @@
+build: false
+
+environment:
+  matrix:
+    - PYTHON_VERSION: 2.7
+      MINICONDA: C:\Miniconda
+
+init:
+  - "ECHO %PYTHON_VERSION% %MINICONDA%"
+
+install:
+  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update --quiet conda
+  - conda info --all
+  - "conda create --quiet --name conda-env-%PYTHON_VERSION% python=%PYTHON_VERSION% --file requirements-conda.txt"
+  - activate conda-env-%PYTHON_VERSION%
+  - python setup.py develop
+  
+test_script:
+  - py.test tests
+  
