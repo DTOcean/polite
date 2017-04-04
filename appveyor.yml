@@ -7,7 +7,7 @@ environment:
       ARCH: "32"
       
     - PYTHON_VERSION: 2.7
-      MINICONDA:C:\Miniconda-x64
+      MINICONDA: C:\Miniconda-x64
       ARCH: "64"
 
 
