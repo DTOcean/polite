@@ -1,4 +1,4 @@
-![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/DTOcean/polite?branch=master&svg=true)
+[![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/DTOcean/polite?branch=master&svg=true)](https://ci.appveyor.com/project/DTOcean/polite)
 [![codecov](https://codecov.io/gh/DTOcean/polite/branch/master/graph/badge.svg)](https://codecov.io/gh/DTOcean/polite)
 
 
