@@ -1,4 +1,14 @@
-build: false
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 0.10.dev0.build{build}
 
 environment:
   matrix:
@@ -22,6 +32,8 @@ install:
   - "conda create --quiet --name conda-env-%PYTHON_VERSION%-%ARCH% python=%PYTHON_VERSION% --file requirements-conda.txt"
   - activate conda-env-%PYTHON_VERSION%-%ARCH%
   - python setup.py develop
+  
+build: off
   
 test_script:
   - py.test --cov=polite tests
