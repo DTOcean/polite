@@ -5,4 +5,4 @@ configobj
 pyyaml
 
 # TEST DEPENDENCIES
-pytest
+pytest-cov
