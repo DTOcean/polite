@@ -5,6 +5,8 @@ Created on Thu Mar 31 15:24:33 2016
 @author: 108630
 """
 
+import pytest
+
 import os
 
 from polite.paths import (Directory, 
@@ -100,3 +102,13 @@ def test_Directory_list_files(tmpdir):
     dir_files = src_dir.list_files()
     
     assert set(dir_files) == set(["config.txt", "config.yaml"])
+
+
+def test_Directory_list_files_missing(tmpdir):
+    
+    # Make a source directory path, which does not exist
+    src_tmpdir = os.path.join(str(tmpdir), "missing")
+    src_dir = Directory(str(src_tmpdir))
+    
+    with pytest.raises(IOError):
+        src_dir.list_files()
