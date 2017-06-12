@@ -100,4 +100,3 @@ def test_Directory_list_files(tmpdir):
     dir_files = src_dir.list_files()
     
     assert set(dir_files) == set(["config.txt", "config.yaml"])
-    
