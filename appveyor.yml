@@ -7,6 +7,13 @@
 #      general configuration      #
 #---------------------------------#
 
+# Build only for commits to certain locations
+only_commits:
+  files:
+    - polite/
+    - tests/
+    - setup.py
+
 # version format
 version: 0.10.dev0.build{build}
 
