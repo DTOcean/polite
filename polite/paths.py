@@ -54,7 +54,7 @@ class Directory(object):
         """List all files (not directories) within the directory, if it exists.
         """
         
-        if not self.isdir:
+        if not self.isdir():
             errStr = "Directory {} does not exist".format(self._dir_path)
             raise IOError(errStr)
         
