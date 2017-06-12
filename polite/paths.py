@@ -48,6 +48,20 @@ class Directory(object):
         test_path = self.get_path(file_name)
             
         return os.path.isfile(test_path)
+    
+    def list_files(self):
+        
+        """List all files (not directories) within the directory, if it exists.
+        """
+        
+        if not self.isdir:
+            errStr = "Directory {} does not exist".format(self._dir_path)
+            raise IOError(errStr)
+        
+        dir_files = [f for f in os.listdir(self._dir_path)
+                            if os.path.isfile(os.path.join(self._dir_path, f))]
+                
+        return dir_files
         
     def makedir(self):
 
@@ -161,11 +175,13 @@ class DirectoryMap(object):
         '''Copy a file from the source to target directory.
 
         Args:
-            cfile_name (str): File name of the file to copy. It is
+            src_name (str): File name of the file to copy. It is
               assumed that this exists within the source directory.
+            dst_name (str, optional): Destination file name. Defaults to the
+              same as src_name.
             overwrite (bool, optional): Copy the files to target
               directory even if it already exists. Default to False.
-            new_dir (str, optional): If target file exists and overwrite
+            new_ext (str, optional): If target file exists and overwrite
               is False copy the file appending this extension. Defaults to
               ".new".
 
@@ -205,15 +221,16 @@ class DirectoryMap(object):
 
         return
 
-    def safe_copy_file(self, src_name, dst_name=None):
+    def safe_copy_file(self, src_name, dst_name=None, **kwargs):
 
         '''Copy the file to the target directory if it does not
         exist already.
 
         Args:
-            file_name (str): File name of the file to copy. It is
+            src_name (str): File name of the file to copy. It is
               assumed that this exists within the source directory.
-
+            dst_name (str, optional): Destination file name. Defaults to the
+              same as src_name.
         '''
         
         if dst_name is None:
@@ -224,11 +241,66 @@ class DirectoryMap(object):
         # Test for existance otherwise copy the file to the user data
         # directory
         if not self.target_exists(file_name):
-
             self.copy_file(src_name, dst_name)
 
         return
+    
+    def copy_all(self, overwrite=False,
+                       new_ext='.new'):
 
+        '''Copy all files from the source to target directory.
+
+        Args:
+            overwrite (bool, optional): Copy the files to target
+              directory even if it already exists. Default to False.
+            new_ext (str, optional): If target file exists and overwrite
+              is False copy the file appending this extension. Defaults to
+              ".new".
+
+        '''
+        
+        self._copy_all(self.copy_file,
+                       overwrite=overwrite,
+                       new_ext=new_ext)
+        
+        return
+    
+    def safe_copy_all(self):
+
+        '''Copy all files from the source to target directory if they do not
+        exist.
+        '''
+        
+        self._copy_all(self.safe_copy_file)
+        
+        return
+    
+    def _copy_all(self, copy_method,
+                        overwrite=False,
+                        new_ext='.new'):
+
+        '''Copy all files from the source to target directory.
+
+        Args:
+            copy_method: File copying method to call
+            overwrite (bool, optional): Copy the files to target
+              directory even if it already exists. Default to False.
+            new_ext (str, optional): If target file exists and overwrite
+              is False copy the file appending this extension. Defaults to
+              ".new".
+
+        '''
+
+        dir_files = self.source_dir.list_files()
+        
+        for src_name in dir_files:
+            
+            kwargs = {"overwrite": overwrite,
+                      "new_ext": new_ext}
+            copy_method(src_name, **kwargs)
+            
+        return
+            
 
 def object_path(obj):
 

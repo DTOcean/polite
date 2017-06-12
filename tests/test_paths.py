@@ -20,7 +20,8 @@ class Test(object):
     def test(self):
         
         return True
-                          
+
+
 def test_makedir(tmpdir):
     
     # Make a local directory
@@ -32,20 +33,23 @@ def test_makedir(tmpdir):
     
     assert os.path.isdir(str(locp))
 
+
 def test_UserDataDirectory():
     
     test = UserDataDirectory("test", "test")
     path = test.get_path()
     
     assert isinstance(path, basestring)
-        
+
+
 def test_SiteDataDirectory():
     
     test = SiteDataDirectory("test", "test")
     path = test.get_path()
     
     assert isinstance(path, basestring)
-    
+
+
 def test_object_path():
     
     test = Test()
@@ -53,7 +57,8 @@ def test_object_path():
     test_path = object_path(test)
     
     assert os.path.normcase(test_path) == os.path.normcase(__file__)
-    
+
+
 def test_object_dir():
     
     test = Test()
@@ -62,13 +67,15 @@ def test_object_dir():
     this_dir = os.path.dirname(__file__)
     
     assert os.path.normcase(test_path) == os.path.normcase(this_dir)
-    
+
+
 def test_class_path():
         
     test_path = class_path(Test)
     
     assert os.path.normcase(test_path) == os.path.normcase(__file__)
-    
+
+
 def test_class_dir():
         
     test_path = class_dir(Test)
@@ -77,3 +84,20 @@ def test_class_dir():
     assert os.path.normcase(test_path) == os.path.normcase(this_dir)
 
 
+def test_Directory_list_files(tmpdir):
+    
+    # Make a source directory with some files
+    src_tmpdir = tmpdir.mkdir("test_src")
+    
+    config1 = src_tmpdir.join("config.txt")
+    config1.write("content")
+    
+    config2 = src_tmpdir.join("config.yaml")
+    config2.write("content")
+
+    src_dir = Directory(str(src_tmpdir))
+    
+    dir_files = src_dir.list_files()
+    
+    assert set(dir_files) == set(["config.txt", "config.yaml"])
+    
