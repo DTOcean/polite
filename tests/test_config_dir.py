@@ -17,7 +17,7 @@ from polite.configuration import Config, Logger, ReadINI, ReadYAML
 @pytest.fixture(scope="module")
 def directory():
     '''Share a ObjDirectory object'''
-    
+
     objdir = ObjDirectory(__name__, "..", "examples", "config")
 
     return objdir
@@ -36,15 +36,15 @@ def test_user_config_exists(tmpdir, directory):
     assert configdir.isfile(logger.config_file_name) == False
 
 def test_copy_logger_config(tmpdir, directory):
-    
+
     '''Test if logger configuration is copied'''
-    
+
     # Make a local directory
     locd = tmpdir.mkdir("config")
 
     configdir = Directory(str(locd))
     logger = Logger(configdir)
-    
+
     with pytest.raises(ValueError):
 
         # Copy the logging file
@@ -83,12 +83,36 @@ def test_call_logger(tmpdir, directory):
     configdir = Directory(str(locd))
 
     logger = Logger(configdir)
-    
+
     # Copy the logging file
     src_file_path = directory.get_path("logging.yaml")
     shutil.copy(src_file_path, str(locp))
-    
+
     logger('my_logger')
+
+    assert True
+
+
+def test_call_logger_options(tmpdir, directory):
+
+    '''Test if logger can be called with options'''
+
+    # Make a local directory
+    locd = tmpdir.mkdir("config")
+    locp = locd.join("logging.yaml")
+
+    configdir = Directory(str(locd))
+
+    logger = Logger(configdir)
+
+    # Copy the logging file
+    src_file_path = directory.get_path("logging.yaml")
+    shutil.copy(src_file_path, str(locp))
+
+    logger('my_logger', level="CRITICAL", info_message="test")
+
+    assert True
+
 
 def test_copy_ini_config(tmpdir, directory):
 
@@ -101,13 +125,13 @@ def test_copy_ini_config(tmpdir, directory):
     configdir = Directory(str(locd))
 
     ini_reader = ReadINI(configdir)
-    
+
     with pytest.raises(ValueError):
 
         # Copy the logging file
         ini_reader.copy_config()
 
-    
+
 def test_config_exists(tmpdir, directory):
 
     '''Test that the configuration file is read correctly'''
@@ -127,7 +151,7 @@ def test_config_exists(tmpdir, directory):
     test = ini_reader.config_exists()
 
     assert test
-    
+
 def test_get_config(tmpdir, directory):
 
     '''Test that the configuration file is read correctly'''
@@ -150,7 +174,7 @@ def test_get_config(tmpdir, directory):
     assert isinstance(config, configobj.ConfigObj)
     assert set(config.keys()) == set(['Spreadsheet'])
     assert set(config['Spreadsheet'].keys()) == set(['high', 'low'])
-    
+
 def test_read_yaml(tmpdir, directory):
 
     '''Test if the configuration file is correctly copied.'''
@@ -159,18 +183,18 @@ def test_read_yaml(tmpdir, directory):
     locd = tmpdir.mkdir("config")
     locp = locd.join("logging.yaml")
 
-    # Create Logger object 
+    # Create Logger object
     configdir = Directory(str(locd))
     yaml_reader = ReadYAML(configdir, "logging.yaml")
 
     # Copy the config file
     src_file_path = directory.get_path("logging.yaml")
     shutil.copy(src_file_path, str(locp))
-    
+
     yaml_dict = yaml_reader.read()
-    
+
     assert "loggers" in yaml_dict
-    
+
 def test_write_yaml(tmpdir, directory):
 
     '''Test if the configuration file is correctly copied.'''
@@ -182,10 +206,10 @@ def test_write_yaml(tmpdir, directory):
     configdir = Directory(str(locd))
 
     yaml_reader = ReadYAML(configdir, "logging.yaml")
-    
+
     test_list = ["curly", "larry", "moe"]
     yaml_reader.write(test_list)
-    
+
     assert os.path.basename(str(locd.listdir()[0])) == "logging.yaml"
 
 
