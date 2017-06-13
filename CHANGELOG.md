@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   exists
 - Added DirectoryMap.copy_all and DirectoryMap.safe_copy_all to copy all files
   in the source directory to the target directory.
+  
+### Changed
+
+- Made Logger.configure_logger require the configuration dictionary as an
+  input.
 
 ## [0.9.0] - 2017-01-04
 
