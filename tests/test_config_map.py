@@ -56,6 +56,7 @@ def test_copy_logger_config(tmpdir, directory):
     assert len(locd.listdir()) == 1
     assert os.path.basename(str(locd.listdir()[0])) == "logging.yaml"
 
+
 def test_configure_logger(tmpdir, directory):
 
     '''Test if logger configuration can be loaded'''
@@ -72,8 +73,10 @@ def test_configure_logger(tmpdir, directory):
     logger.copy_config()
 
     # Attempt to configure the logger
-    logger.configure_logger()
-    
+    log_config_dict = logger.read()
+    logger.configure_logger(log_config_dict)
+
+
 def test_call_logger(tmpdir, directory):
 
     '''Test if logger can be called'''
