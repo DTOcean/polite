@@ -115,84 +115,6 @@ class Config(object):
         return (header, footer)
 
 
-class Logger(Config):
-
-    '''Class to configure and control the python logging system.
-
-    Args:
-        config_file_name (str, optional): Name of the logging config file.
-          Defaults to "logging.yaml".
-
-    Attributes:
-        logging_config_file_name (str): File name of the logging config file.
-
-    '''
-
-    def __init__(self, directory, config_file_name='logging.yaml'):
-
-        super(Logger, self).__init__(directory, config_file_name)
-
-    def configure_logger(self):
-
-        '''Load the logging configuration file.'''
-
-        # Load the file
-        logging_config_path = self.get_config_path()
-        
-        # Test for existance of the file
-        if not self.config_exists():
-            
-            errStr = "Expected file not found at path: {}".format(
-                                                        logging_config_path)
-            raise IOError(errStr)
-
-        with open(logging_config_path, 'r') as conf:
-            log_config_dict = yaml.load(conf)
-
-        # Configure the logger
-        dictConfig(log_config_dict)
-
-        return
-
-    def add_named_logger(self, log_name,
-                               log_level=None,
-                               info_message=None):
-
-        """Start a named logger.
-
-        Args:
-            log_name (str): Name of the logger.
-            log_level (str, optional): Valid logging level.
-            info_message (str, optional): Message to broadcast on the logger
-              info channel.
-        """
-
-        named_logger = logging.getLogger(log_name)
-
-        if log_level is not None:
-
-            named_logger.setLevel(log_level)
-
-        if info_message is not None:
-
-            named_logger.info(info_message)
-
-        return named_logger
-
-    def __call__(self, package,
-                       level=None,
-                       info_message=None):
-
-        # Bring up the logger
-        if self.directory_map is not None: self.copy_config()
-        self.configure_logger()
-        self.add_named_logger(package,
-                              level,
-                              info_message)
-
-        return
-
-
 class ReadINI(Config):
 
     '''Class to prepare and read ini configuration files. This class uses
@@ -394,4 +316,70 @@ class ReadYAML(Config):
                       yaml_file,
                       default_flow_style=default_flow_style)
         
+        return
+
+
+class Logger(ReadYAML):
+
+    '''Class to configure and control the python logging system.
+
+    Args:
+        config_file_name (str, optional): Name of the logging config file.
+          Defaults to "logging.yaml".
+
+    Attributes:
+        logging_config_file_name (str): File name of the logging config file.
+
+    '''
+
+    def __init__(self, directory, config_file_name='logging.yaml'):
+
+        super(Logger, self).__init__(directory, config_file_name)
+
+    def configure_logger(self, log_config_dict):
+
+        '''Load the logging configuration file.'''
+
+        # Configure the logger
+        dictConfig(log_config_dict)
+
+        return
+
+    def add_named_logger(self, log_name,
+                               log_level=None,
+                               info_message=None):
+
+        """Start a named logger.
+
+        Args:
+            log_name (str): Name of the logger.
+            log_level (str, optional): Valid logging level.
+            info_message (str, optional): Message to broadcast on the logger
+              info channel.
+        """
+
+        named_logger = logging.getLogger(log_name)
+
+        if log_level is not None:
+
+            named_logger.setLevel(log_level)
+
+        if info_message is not None:
+
+            named_logger.info(info_message)
+
+        return named_logger
+
+    def __call__(self, package,
+                       level=None,
+                       info_message=None):
+
+        # Bring up the logger
+        if self.directory_map is not None: self.copy_config()
+        log_config_dict = self.read()
+        self.configure_logger(log_config_dict)
+        self.add_named_logger(package,
+                              level,
+                              info_message)
+
         return

@@ -50,6 +50,7 @@ def test_copy_logger_config(tmpdir, directory):
         # Copy the logging file
         logger.copy_config()
 
+
 def test_configure_logger(tmpdir, directory):
 
     '''Test if logger configuration can be loaded'''
@@ -67,8 +68,10 @@ def test_configure_logger(tmpdir, directory):
     shutil.copy(src_file_path, str(locp))
 
     # Attempt to configure the logger
-    logger.configure_logger()
-    
+    log_config_dict = logger.read()
+    logger.configure_logger(log_config_dict)
+
+
 def test_call_logger(tmpdir, directory):
 
     '''Test if logger can be called'''
