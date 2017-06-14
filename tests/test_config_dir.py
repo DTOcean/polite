@@ -213,3 +213,23 @@ def test_write_yaml(tmpdir, directory):
     assert os.path.basename(str(locd.listdir()[0])) == "logging.yaml"
 
 
+def test_write_yaml_nodir(tmpdir, directory):
+
+    '''Test if the configuration file is correctly copied when directory is
+    missing.'''
+
+    # Make a local directory
+    locd = tmpdir.mkdir("config")
+    nodir = os.path.join(str(locd), "nodir")
+
+    # Create Logger object and change path to user data dir to tmp
+    configdir = Directory(nodir)
+
+    yaml_reader = ReadYAML(configdir, "logging.yaml")
+
+    test_list = ["curly", "larry", "moe"]
+    yaml_reader.write(test_list)
+
+    testdir = locd.join("nodir")
+    
+    assert os.path.basename(str(testdir.listdir()[0])) == "logging.yaml"

@@ -310,6 +310,9 @@ class ReadYAML(Config):
         # Write the file
         yaml_config_path = self.get_config_path()
         
+        # Ensure target directory exists
+        self.target_dir.makedir()
+        
         with open(yaml_config_path, 'w') as yaml_file:
             
             yaml.dump(obj_to_serialise,
