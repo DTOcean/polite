@@ -64,7 +64,7 @@ class CleanPyc(Command):
 
 
 setup(name='polite',
-      version='0.10.dev0',
+      version='0.10.dev1',
       description='Easy functions for paths, logging and configuration files',
       author='Mathew Toppper',
       author_email='mathew.topper@tecnalia.com',

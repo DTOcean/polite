@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Made Logger.configure_logger require the configuration dictionary as an
   input.
+  
+### Fixed
+
+- Ensured that the target directory exists when calling ReadYAML.write().
 
 ## [0.9.0] - 2017-01-04
 
