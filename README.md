@@ -5,4 +5,4 @@
 
 # polite
 
-Easy functions for paths, logging and configuration files
+Easy functions for paths, logging and configuration files.
