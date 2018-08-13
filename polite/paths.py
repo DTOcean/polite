@@ -55,8 +55,8 @@ class Directory(object):
         """
         
         if not self.isdir():
-            errStr = "Directory {} does not exist".format(self._dir_path)
-            raise IOError(errStr)
+            error_str = "Directory {} does not exist".format(self._dir_path)
+            raise IOError(error_str)
         
         dir_files = [f for f in os.listdir(self._dir_path)
                             if os.path.isfile(os.path.join(self._dir_path, f))]
@@ -189,8 +189,8 @@ class DirectoryMap(object):
         
         if self.source_dir is None:
             
-            errStr = "No source directory is given."
-            raise ValueError(errStr)
+            error_str = "No source directory is given."
+            raise ValueError(error_str)
             
         if dst_name is None:
             file_name = src_name
@@ -376,9 +376,7 @@ def module_path(module):
 
     '''
 
-    module_path = os.path.realpath(module.__file__)
-
-    return module_path
+    return os.path.realpath(module.__file__)
 
 def module_dir(module):
 

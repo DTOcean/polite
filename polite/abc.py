@@ -5,7 +5,7 @@ Created on Wed Mar 16 09:57:15 2016
 @author: 108630
 """
 
-
+#pylint: disable=C0103,W0622,R0903
 class abstractclassmethod(classmethod):
     
     """Not that to make this work, you should place cls() in the abstract
