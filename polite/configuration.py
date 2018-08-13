@@ -26,7 +26,9 @@ import yaml
 from configobj import ConfigObj
 from validate import Validator, ValidateError
 
-from .paths import DirectoryMap, Directory
+# Local modules
+from .paths import DirectoryMap
+
 
 class Config(object):
 
@@ -75,8 +77,8 @@ class Config(object):
         
         if self.directory_map is None:
             
-            errStr = "No source directory available."
-            raise ValueError(errStr)
+            error_str = "No source directory available."
+            raise ValueError(error_str)
 
         self.directory_map.copy_file(self.config_file_name,
                                      overwrite=overwrite,
@@ -91,7 +93,7 @@ class Config(object):
         return result
 
     @classmethod
-    def make_head_foot_bar(cls, header_title, bar_width, bar_char = '*'):
+    def make_head_foot_bar(cls, header_title, bar_width, bar_char='*'):
 
         '''Make header and footer strings consisting of a bar of characters of
         fixed width, with a title embeded in the header bar.
@@ -188,9 +190,9 @@ class ReadINI(Config):
         # Test for existance of the file
         if not self.config_exists():
             
-            errStr = "Expected file not found at path: {}".format(
+            error_str = "Expected file not found at path: {}".format(
                                                             ini_config_path)
-            raise IOError(errStr)
+            raise IOError(error_str)
 
         config = ConfigObj(ini_config_path,
                            configspec=configspec_path)
@@ -236,10 +238,10 @@ class ReadINI(Config):
 
             # module_logger.debug(log_msg)
 
-            errStr = 'Configuration file "{}" failed validation:\n{}'.format(
-                                                    self.config_file_name,
-                                                    log_msg)
-            raise ValidateError(errStr)
+            error_str = ('Configuration file "{}" failed '
+                         'validation:\n{}').format(self.config_file_name,
+                                                   log_msg)
+            raise ValidateError(error_str)
 
         return config
 
@@ -271,12 +273,13 @@ class ReadINI(Config):
                 log_str = ' - Key "{}" must be set.'.format(key)
                 log_lines.append(log_str)
 
-            elif type(value) is dict:
+            elif isinstance(value, dict):
 
                 add_logs = self._type_fails(value)
                 log_lines.extend(add_logs)
 
         return log_lines
+
 
 class ReadYAML(Config):
 
@@ -338,8 +341,9 @@ class Logger(ReadYAML):
     def __init__(self, directory, config_file_name='logging.yaml'):
 
         super(Logger, self).__init__(directory, config_file_name)
-
-    def configure_logger(self, log_config_dict):
+   
+    @classmethod
+    def configure_logger(cls, log_config_dict):
 
         '''Load the logging configuration file.'''
 
@@ -347,10 +351,11 @@ class Logger(ReadYAML):
         dictConfig(log_config_dict)
 
         return
-
-    def add_named_logger(self, log_name,
-                               log_level=None,
-                               info_message=None):
+    
+    @classmethod
+    def add_named_logger(cls, log_name,
+                              log_level=None,
+                              info_message=None):
 
         """Start a named logger.
 
