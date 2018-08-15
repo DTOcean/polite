@@ -44,23 +44,25 @@ class CleanPyc(Command):
             os.remove(pyc_path)
         print "the end."
      
-    def is_exclude(self, path):
-        for item in CleanPyc.exclude_list:
-            if path.find(item) != -1:
-                return True
-        return False
-     
-    def is_pyc(self, path):
-        return path.endswith('.pyc')
-     
     def pickup_pyc(self):
-        for root, dirs, files in os.walk(os.getcwd()):
+        for root, _, files in os.walk(os.getcwd()):
             for fname in files:
                 if self.is_exclude(root):
                     continue
                 if not self.is_pyc(fname):
                     continue
                 yield os.path.join(root, fname)
+                
+    @classmethod
+    def is_exclude(cls, path):
+        for item in CleanPyc.exclude_list:
+            if path.find(item) != -1:
+                return True
+        return False
+        
+    @classmethod
+    def is_pyc(cls, path):
+        return path.endswith('.pyc')
 
 
 setup(name='polite',
@@ -68,15 +70,15 @@ setup(name='polite',
       description='Easy functions for paths, logging and configuration files',
       author='Mathew Toppper',
       author_email='mathew.topper@tecnalia.com',
-      license = "MIT",
+      license="MIT",
       packages=['polite'],
       install_requires=[
           'configobj',
           'pyyaml'
       ],
       tests_require=['pytest'],
-      cmdclass = {'test': PyTest,
-                  'cleanpyc': CleanPyc,
-                  },
+      cmdclass={'test': PyTest,
+                'cleanpyc': CleanPyc,
+                },
       )
       

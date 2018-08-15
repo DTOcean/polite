@@ -5,6 +5,8 @@ Created on Thu Mar 31 15:24:33 2016
 @author: 108630
 """
 
+#pylint: disable=C0103,C0111
+
 import glob
 
 from polite.paths import Directory, DirectoryMap

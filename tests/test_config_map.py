@@ -4,6 +4,8 @@
 .. moduleauthor:: Mathew Topper <mathew.topper@tecnalia.com>
 """
 
+#pylint: disable=W0621,C0103,C0111
+
 import os
 import configobj
 from validate import ValidateError
@@ -34,7 +36,7 @@ def test_user_config_exists(tmpdir, directory):
 
     logger = Logger(dirmap)
 
-    assert configdir.isfile(logger.config_file_name) == False
+    assert not configdir.isfile(logger.config_file_name)
 
 def test_copy_logger_config(tmpdir, directory):
 
@@ -214,9 +216,8 @@ def test_not_valid_config(tmpdir, directory):
     ini_reader.copy_config()
 
     with pytest.raises(ValidateError):
-
         # Read the config file
-        config = ini_reader.get_valid_config()
+        ini_reader.get_valid_config()
 
 
 def test_make_head_foot_bar():

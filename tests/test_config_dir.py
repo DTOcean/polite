@@ -4,14 +4,16 @@
 .. moduleauthor:: Mathew Topper <mathew.topper@tecnalia.com>
 """
 
+#pylint: disable=W0621,C0103,C0111
+
 import os
 import shutil
 import configobj
 
 import pytest
 
-from polite.paths import Directory, ObjDirectory, DirectoryMap
-from polite.configuration import Config, Logger, ReadINI, ReadYAML
+from polite.paths import Directory, ObjDirectory
+from polite.configuration import Logger, ReadINI, ReadYAML
 
 # Using a py.test fixture to reduce boilerplate and test times.
 @pytest.fixture(scope="module")
@@ -22,7 +24,7 @@ def directory():
 
     return objdir
 
-def test_user_config_exists(tmpdir, directory):
+def test_user_config_exists(tmpdir):
 
     '''Test if the user_config_exists function returns false'''
 
@@ -33,9 +35,9 @@ def test_user_config_exists(tmpdir, directory):
 
     logger = Logger(configdir)
 
-    assert configdir.isfile(logger.config_file_name) == False
+    assert not configdir.isfile(logger.config_file_name)
 
-def test_copy_logger_config(tmpdir, directory):
+def test_copy_logger_config(tmpdir):
 
     '''Test if logger configuration is copied'''
 
@@ -114,7 +116,7 @@ def test_call_logger_options(tmpdir, directory):
     assert True
 
 
-def test_copy_ini_config(tmpdir, directory):
+def test_copy_ini_config(tmpdir):
 
     '''Test if the configuration file is correctly copied.'''
 
@@ -152,6 +154,7 @@ def test_config_exists(tmpdir, directory):
 
     assert test
 
+
 def test_get_config(tmpdir, directory):
 
     '''Test that the configuration file is read correctly'''
@@ -175,6 +178,7 @@ def test_get_config(tmpdir, directory):
     assert set(config.keys()) == set(['Spreadsheet'])
     assert set(config['Spreadsheet'].keys()) == set(['high', 'low'])
 
+
 def test_read_yaml(tmpdir, directory):
 
     '''Test if the configuration file is correctly copied.'''
@@ -195,7 +199,7 @@ def test_read_yaml(tmpdir, directory):
 
     assert "loggers" in yaml_dict
 
-def test_write_yaml(tmpdir, directory):
+def test_write_yaml(tmpdir):
 
     '''Test if the configuration file is correctly copied.'''
 
@@ -213,7 +217,7 @@ def test_write_yaml(tmpdir, directory):
     assert os.path.basename(str(locd.listdir()[0])) == "logging.yaml"
 
 
-def test_write_yaml_nodir(tmpdir, directory):
+def test_write_yaml_nodir(tmpdir):
 
     '''Test if the configuration file is correctly copied when directory is
     missing.'''
