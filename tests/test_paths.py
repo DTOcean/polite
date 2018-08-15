@@ -5,9 +5,10 @@ Created on Thu Mar 31 15:24:33 2016
 @author: 108630
 """
 
-import pytest
+#pylint: disable=C0103,C0111
 
 import os
+import pytest
 
 from polite.paths import (Directory, 
                           UserDataDirectory,
@@ -16,7 +17,8 @@ from polite.paths import (Directory,
                           object_dir,
                           class_path,
                           class_dir)
-                          
+
+#pylint: disable=C0111,R0903,R0201
 class Test(object):
     
     def test(self):
