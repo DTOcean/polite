@@ -114,3 +114,12 @@ def test_Directory_list_files_missing(tmpdir):
     
     with pytest.raises(IOError):
         src_dir.list_files()
+        
+
+def test_Directory_str():
+    
+    path = os.path.join("some", "path", "with", "..", "in")
+    test = Directory(path)
+    
+    assert str(test) != path
+    assert str(test) == os.path.join("some", "path", "in")
