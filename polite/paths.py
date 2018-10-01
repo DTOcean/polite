@@ -25,7 +25,7 @@ class Directory(object):
 
     def __init__(self, dir_path):
 
-        self._dir_path = dir_path
+        self._dir_path = os.path.normpath(dir_path)
 
         return
 
@@ -72,8 +72,12 @@ class Directory(object):
             os.makedirs(self.get_path())
 
         return
-
     
+    def __str__(self):
+        
+        return self._dir_path
+
+
 class ObjDirectory(Directory):
 
     '''Directory of the calling object.'''
