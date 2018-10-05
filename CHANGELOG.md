@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   exists
 - Added DirectoryMap.copy_all and DirectoryMap.safe_copy_all to copy all files
   in the source directory to the target directory.
+- Directory objects now returns their path when printed.
   
 ### Changed
 
