@@ -2,7 +2,7 @@
 """
 Created on Thu Mar 31 15:24:33 2016
 
-@author: 108630
+@author: Mathew Topper
 """
 
 #pylint: disable=C0103,C0111
