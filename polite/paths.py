@@ -6,7 +6,7 @@
    :platform: Windows
    :synopsis: Provides application paths
 
-.. moduleauthor:: Mathew Topper <mathew.topper@tecnalia.com>
+.. moduleauthor:: Mathew Topper <mathew.topper@dataonlygreater.com>
 
 """
 

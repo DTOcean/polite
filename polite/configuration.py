@@ -8,7 +8,7 @@ files.
    :platform: Windows
    :synopsis: Provides configuration helpers
 
-.. moduleauthor:: Mathew Topper <mathew.topper@tecnalia.com>
+.. moduleauthor:: Mathew Topper <mathew.topper@dataonlygreater.com>
 
 """
 
