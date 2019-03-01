@@ -44,6 +44,15 @@ To deactivate the conda environment:
 $ conda deactivate
 ```
 
+For installation into another environment (such as when developing
+multiple DTOcean packages), use the `requirements-conda-dev.tex` file for
+dependencies:
+
+```
+$ conda install --file requirements-conda-dev.txt
+$ pip install -e .
+```
+
 ### Tests
 
 A test suite is provided with the source code that uses [pytest](
