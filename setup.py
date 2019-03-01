@@ -66,12 +66,13 @@ class CleanPyc(Command):
 
 
 setup(name='polite',
-      version='0.10.dev1',
+      version='0.10.0',
       description='Easy functions for paths, logging and configuration files',
       author='Mathew Toppper',
-      author_email='mathew.topper@tecnalia.com',
+      author_email='mathew.topper@dataonlygreater.com',
       license="MIT",
       packages=['polite'],
+      package_data={'polite': ['config/*.yaml']},
       install_requires=[
           'configobj',
           'pyyaml'

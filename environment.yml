@@ -1,0 +1,8 @@
+name: _polite
+channels:
+  - defaults
+dependencies:
+  - python=2.7
+  - pip
+  - configobj
+  - pyyaml

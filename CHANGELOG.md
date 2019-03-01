@@ -5,12 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.10.0] - 2019-03-01
 
 ### Added
 
+- Added dummy logging configuration file to config/logging.yaml and added
+  usage example to README.
 - Added Directory.list_files method to list the files in a directory if it
-  exists
+  exists.
 - Added DirectoryMap.copy_all and DirectoryMap.safe_copy_all to copy all files
   in the source directory to the target directory.
 - Directory objects now returns their path when printed.
