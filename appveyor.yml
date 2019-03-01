@@ -38,7 +38,7 @@ install:
   - conda info --all
   - conda env create -f environment.yml
   - activate _polite
-  - conda install -y pytest
+  - conda install -y pytest pytest-cov
   - pip install -e .
   
 build: off
