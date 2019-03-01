@@ -95,8 +95,7 @@ $ conda remove --name _polite --all
 
 An example of setting up [logging](
 https://docs.python.org/2/library/logging.html) using a user-specific [yaml 
-configuration file]( https://docs.python.org/2/howto/
-logging.html#configuring-logging).
+configuration file](https://docs.python.org/2/howto/logging.html#configuring-logging).
 
 Copy the default logging file from the module source code to the user's data
 directory (`C:\Users\<USERNAME>\AppData\Roaming\DTOcean\polite`):
@@ -132,9 +131,8 @@ INFO - polite - Hello World
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
 
-See [this blog post](https://www.dataonlygreater.com/latest/professional/2017/
-03/09/dtocean-development-change-management/) for information regarding
-development of the DTOcean ecosystem.
+See [this blog post](https://www.dataonlygreater.com/latest/professional/2017/03/09/dtocean-development-change-management/)
+for information regarding development of the DTOcean ecosystem.
 
 Please make sure to update tests as appropriate.
 
