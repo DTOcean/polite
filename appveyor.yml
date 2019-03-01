@@ -15,7 +15,7 @@ only_commits:
     - setup.py
 
 # version format
-version: 0.10.dev1.build{build}
+version: 0.10.0.build{build}
 
 environment:
   matrix:
@@ -36,9 +36,10 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update --quiet conda
   - conda info --all
-  - "conda create --quiet --name conda-env-%PYTHON_VERSION%-%ARCH% python=%PYTHON_VERSION% --file requirements-conda.txt"
-  - activate conda-env-%PYTHON_VERSION%-%ARCH%
-  - python setup.py develop
+  - conda env create -f environment.yml
+  - activate _polite
+  - conda install -y pytest
+  - pip install -e .
   
 build: off
   
