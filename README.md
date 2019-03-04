@@ -28,13 +28,14 @@ Conda can be used to install dependencies into a dedicated environment from
 the source code root directory:
 
 ```
-conda env create -f environment.yml
+conda create -n _polite python=2.7 pip
 ```
 
-Now activate the environment and use pip to install the source code:
+Now activate the environment and use conda and pip to install the source code:
 
 ```
 $ conda activate _polite
+$ conda install --file requirements-conda-dev.txt
 $ pip install -e .
 ```
 
@@ -42,15 +43,6 @@ To deactivate the conda environment:
 
 ```
 $ conda deactivate
-```
-
-For installation into another environment (such as when developing
-multiple DTOcean packages), use the `requirements-conda-dev.tex` file for
-dependencies:
-
-```
-$ conda install --file requirements-conda-dev.txt
-$ pip install -e .
 ```
 
 ### Tests
