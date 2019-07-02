@@ -26,6 +26,11 @@ import yaml
 from configobj import ConfigObj
 from validate import Validator, ValidateError
 
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+
 # Local modules
 from .paths import DirectoryMap
 
@@ -302,7 +307,7 @@ class ReadYAML(Config):
         yaml_config_path = self.get_config_path()
 
         with open(yaml_config_path, 'r') as conf:
-            config_dict = yaml.load(conf)
+            config_dict = yaml.load(conf, Loader=Loader)
 
         return config_dict
         
@@ -320,7 +325,8 @@ class ReadYAML(Config):
             
             yaml.dump(obj_to_serialise,
                       yaml_file,
-                      default_flow_style=default_flow_style)
+                      default_flow_style=default_flow_style,
+                      Dumper=Dumper)
         
         return
 
