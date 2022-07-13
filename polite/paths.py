@@ -95,6 +95,30 @@ class ObjDirectory(Directory):
         return
 
 
+class EtcDirectory(Directory):
+    '''Distribution's etc directory'''
+    
+    def __init__(self, *paths):
+        
+        def get_dir(*paths): #pylint: disable=missing-docstring
+            path = os.path.abspath(os.path.join(*paths))
+            if os.path.isdir(path): return path
+            return False
+        
+        exe_folder = os.path.dirname(sys.executable)
+        
+        dir_path = get_dir(exe_folder, "etc")
+        
+        if dir_path is False:
+            dir_path = get_dir(exe_folder, "..", "etc")
+        
+        if dir_path is False:
+            raise RuntimeError("Distribution 'etc' folder not found")
+        
+        dir_path = os.path.join(dir_path, *paths)
+        super(EtcDirectory, self).__init__(dir_path)
+
+
 class UserDataDirectory(Directory):
 
     '''Directory based on the user data directory for the given package.'''

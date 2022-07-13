@@ -13,6 +13,7 @@ import pytest
 from polite.paths import (Directory, 
                           UserDataDirectory,
                           SiteDataDirectory,
+                          EtcDirectory,
                           object_path,
                           object_dir,
                           class_path,
@@ -47,11 +48,55 @@ def test_UserDataDirectory():
 
 
 def test_SiteDataDirectory():
-    
     test = SiteDataDirectory("test", "test")
     path = test.get_path()
     
     assert isinstance(path, basestring)
+
+
+def test_EtcDirectory_win(mocker, tmp_path):
+    
+    exe_path = tmp_path / "python.exe"
+    etc_dir = tmp_path / "etc"
+    etc_dir.mkdir()
+    
+    mocker.patch('polite.paths.sys.executable',
+                 new=str(exe_path))
+    
+    test = EtcDirectory("mock")
+    expected = os.path.join(str(tmp_path), "etc", "mock")
+    
+    assert test.get_path() == expected
+
+
+def test_EtcDirectory_linux(mocker, tmp_path):
+    
+    exe_path = tmp_path / "bin" / "python"
+    etc_dir = tmp_path / "etc"
+    etc_dir.mkdir()
+    
+    mocker.patch('polite.paths.sys.executable',
+                 new=str(exe_path))
+    
+    test = EtcDirectory("mock")
+    expected = os.path.join(str(tmp_path), "etc", "mock")
+    
+    assert test.get_path() == expected
+
+
+def test_EtcDirectory_unknown(mocker, tmp_path):
+    
+    exe_path = tmp_path / "Lib" / "bin" / "python"
+    etc_dir = tmp_path / "etc"
+    etc_dir.mkdir()
+    
+    mocker.patch('polite.paths.sys.executable',
+                 new=str(exe_path))
+    
+    with pytest.raises(RuntimeError) as excinfo:
+        EtcDirectory()
+    
+    assert "'etc' folder not found" in str(excinfo)
 
 
 def test_object_path():
@@ -74,14 +119,14 @@ def test_object_dir():
 
 
 def test_class_path():
-        
+    
     test_path = class_path(Test)
     
     assert os.path.normcase(test_path) == os.path.normcase(__file__)
 
 
 def test_class_dir():
-        
+    
     test_path = class_dir(Test)
     this_dir = os.path.dirname(__file__)
     
@@ -98,7 +143,7 @@ def test_Directory_list_files(tmpdir):
     
     config2 = src_tmpdir.join("config.yaml")
     config2.write("content")
-
+    
     src_dir = Directory(str(src_tmpdir))
     
     dir_files = src_dir.list_files()
@@ -114,7 +159,7 @@ def test_Directory_list_files_missing(tmpdir):
     
     with pytest.raises(IOError):
         src_dir.list_files()
-        
+
 
 def test_Directory_str():
     

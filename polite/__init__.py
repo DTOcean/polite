@@ -1,6 +1,6 @@
 
-# Define build number for packaging test
-from ._build import BUILD
+from pkg_resources import get_distribution
 
 __all__ = ["abc", "configuration", "paths"]
-__build__ = BUILD
+__authors__ = ['DTOcean Developers']
+__version__ = get_distribution('polite').version
