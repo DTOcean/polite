@@ -32,7 +32,7 @@ install:
   - activate _polite
   - conda install --file requirements-conda-dev.txt
   - pip install -e .
-  - conda install pytest pytest-cov
+  - conda install mock pytest pytest-cov pytest-mock
 
 build: off
 
