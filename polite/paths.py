@@ -100,7 +100,7 @@ class EtcDirectory(Directory):
     
     def __init__(self, *paths):
         
-        def get_dir(*paths):
+        def get_dir(*paths): #pylint: disable=missing-docstring
             path = os.path.abspath(os.path.join(*paths))
             if os.path.isdir(path): return path
             return False

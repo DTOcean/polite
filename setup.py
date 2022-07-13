@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+#pylint: disable=missing-docstring,wrong-import-order
+
 import os
 import sys
 from distutils.cmd import Command

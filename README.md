@@ -1,13 +1,13 @@
 [![appveyor](https://ci.appveyor.com/api/projects/status/github/DTOcean/polite?branch=master&svg=true)](https://ci.appveyor.com/project/DTOcean/polite)
 [![codecov](https://codecov.io/gh/DTOcean/polite/branch/master/graph/badge.svg)](https://codecov.io/gh/DTOcean/polite)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bb34506cc82f4df883178a6e64619eaf)](https://www.codacy.com/project/H0R5E/polite/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DTOcean/polite&amp;utm_campaign=Badge_Grade_Dashboard&amp;branchId=8410911)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1a2d478b95544457b22fdf444b4a8b6f)](https://www.codacy.com/gh/DTOcean/polite/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DTOcean/polite&amp;utm_campaign=Badge_Grade)
 [![release](https://img.shields.io/github/release/DTOcean/polite.svg)](https://github.com/DTOcean/polite/releases/latest)
 
 # polite
 
 Easy functions for paths, logging and configuration files.
 
-* For python 2.7 only.
+\* For python 2.7 only.
 
 ## Installation
 
@@ -28,7 +28,7 @@ Conda can be used to install dependencies into a dedicated environment from
 the source code root directory:
 
 ```
-conda create -n _polite python=2.7 pip
+$ conda create -n _polite python=2.7 pip
 ```
 
 Now activate the environment and use conda and pip to install the source code:
@@ -60,13 +60,13 @@ $ conda activate _polite
 Install pytest to the environment (one time only):
 
 ```
-$ conda install -y pytest
+$ conda install -y mock pytest pytest-mock
 ```
 
 Run the tests:
 
 ``` 
-$ py.test tests
+$ pytest tests
 ```
 
 ### Uninstall
