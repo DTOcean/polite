@@ -7,15 +7,8 @@
 #      general configuration      #
 #---------------------------------#
 
-# Build only for commits to certain locations
-only_commits:
-  files:
-    - polite/
-    - tests/
-    - setup.py
-
 # version format
-version: 0.10.1-build{build}
+version: 0.10.2.build{build}
 
 environment:
   matrix:
@@ -33,20 +26,19 @@ init:
 install:
   - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
   - conda config --set always_yes yes --set changeps1 no
-  - conda install --quiet conda=4.6.14
+  - conda install --quiet conda
   - conda info --all
   - conda create -n _polite python=2.7 pip
   - activate _polite
   - conda install --file requirements-conda-dev.txt
   - pip install -e .
   - conda install pytest pytest-cov
-  
+
 build: off
-  
+
 test_script:
   - py.test --cov=polite tests
-  
+
 after_test:
  - pip install codecov
  - codecov
-  
