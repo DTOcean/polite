@@ -17,7 +17,7 @@ import shutil
 import inspect
 
 # Local imports
-from .appdirs import user_data_dir, site_data_dir
+from .appdirs import user_data_dir, site_data_dir, system
 
 class Directory(object):
 
@@ -101,19 +101,14 @@ class EtcDirectory(Directory):
     def __init__(self, *paths):
         
         def get_dir(*paths): #pylint: disable=missing-docstring
-            path = os.path.abspath(os.path.join(*paths))
-            if os.path.isdir(path): return path
-            return False
+            return os.path.abspath(os.path.join(*paths))
         
         exe_folder = os.path.dirname(sys.executable)
         
-        dir_path = get_dir(exe_folder, "etc")
-        
-        if dir_path is False:
+        if system == "win32":
+            dir_path = get_dir(exe_folder, "etc")
+        else:
             dir_path = get_dir(exe_folder, "..", "etc")
-        
-        if dir_path is False:
-            raise RuntimeError("Distribution 'etc' folder not found")
         
         dir_path = os.path.join(dir_path, *paths)
         super(EtcDirectory, self).__init__(dir_path)
