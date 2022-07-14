@@ -57,11 +57,11 @@ def test_SiteDataDirectory():
 def test_EtcDirectory_win(mocker, tmp_path):
     
     exe_path = tmp_path / "python.exe"
-    etc_dir = tmp_path / "etc"
-    etc_dir.mkdir()
     
     mocker.patch('polite.paths.sys.executable',
                  new=str(exe_path))
+    mocker.patch('polite.paths.system',
+                 new='win32')
     
     test = EtcDirectory("mock")
     expected = os.path.join(str(tmp_path), "etc", "mock")
@@ -72,31 +72,16 @@ def test_EtcDirectory_win(mocker, tmp_path):
 def test_EtcDirectory_linux(mocker, tmp_path):
     
     exe_path = tmp_path / "bin" / "python"
-    etc_dir = tmp_path / "etc"
-    etc_dir.mkdir()
     
     mocker.patch('polite.paths.sys.executable',
                  new=str(exe_path))
+    mocker.patch('polite.paths.system',
+                 new='linux2')
     
     test = EtcDirectory("mock")
     expected = os.path.join(str(tmp_path), "etc", "mock")
     
     assert test.get_path() == expected
-
-
-def test_EtcDirectory_unknown(mocker, tmp_path):
-    
-    exe_path = tmp_path / "Lib" / "bin" / "python"
-    etc_dir = tmp_path / "etc"
-    etc_dir.mkdir()
-    
-    mocker.patch('polite.paths.sys.executable',
-                 new=str(exe_path))
-    
-    with pytest.raises(RuntimeError) as excinfo:
-        EtcDirectory()
-    
-    assert "'etc' folder not found" in str(excinfo)
 
 
 def test_object_path():
