@@ -71,6 +71,7 @@ def test_configure_logger(tmpdir, directory):
 
     # Attempt to configure the logger
     log_config_dict = logger.read()
+    print(log_config_dict)
     logger.configure_logger(log_config_dict)
 
 

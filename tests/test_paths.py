@@ -20,10 +20,8 @@ from polite.paths import (Directory,
                           class_dir)
 
 #pylint: disable=C0111,R0903,R0201
-class Test(object):
-    
-    def test(self):
-        
+class Mock(object):
+    def mock(self):
         return True
 
 
@@ -44,14 +42,14 @@ def test_UserDataDirectory():
     test = UserDataDirectory("test", "test")
     path = test.get_path()
     
-    assert isinstance(path, basestring)
+    assert isinstance(path, str)
 
 
 def test_SiteDataDirectory():
     test = SiteDataDirectory("test", "test")
     path = test.get_path()
     
-    assert isinstance(path, basestring)
+    assert isinstance(path, str)
 
 
 def test_EtcDirectory_win(mocker, tmp_path):
@@ -86,7 +84,7 @@ def test_EtcDirectory_linux(mocker, tmp_path):
 
 def test_object_path():
     
-    test = Test()
+    test = Mock()
     
     test_path = object_path(test)
     
@@ -95,7 +93,7 @@ def test_object_path():
 
 def test_object_dir():
     
-    test = Test()
+    test = Mock()
     
     test_path = object_dir(test)
     this_dir = os.path.dirname(__file__)
@@ -105,14 +103,14 @@ def test_object_dir():
 
 def test_class_path():
     
-    test_path = class_path(Test)
+    test_path = class_path(Mock)
     
     assert os.path.normcase(test_path) == os.path.normcase(__file__)
 
 
 def test_class_dir():
     
-    test_path = class_dir(Test)
+    test_path = class_dir(Mock)
     this_dir = os.path.dirname(__file__)
     
     assert os.path.normcase(test_path) == os.path.normcase(this_dir)

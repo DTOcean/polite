@@ -265,7 +265,7 @@ class ReadINI(Config):
         log_lines = []
 
         # Iterate through the failures in the config file
-        for key, value in results.iteritems():
+        for key, value in results.items():
 
             if issubclass(type(value), ValidateError):
 
