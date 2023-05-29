@@ -20,6 +20,10 @@ environment:
       MINICONDA: C:\Miniconda-x64
       ARCH: "64"
 
+branches:
+  only:
+  - master
+
 init:
   - "ECHO %PYTHON_VERSION% %MINICONDA%"
 
