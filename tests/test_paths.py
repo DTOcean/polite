@@ -44,14 +44,14 @@ def test_UserDataDirectory():
     test = UserDataDirectory("test", "test")
     path = test.get_path()
     
-    assert isinstance(path, basestring)
+    assert isinstance(path, str)
 
 
 def test_SiteDataDirectory():
     test = SiteDataDirectory("test", "test")
     path = test.get_path()
     
-    assert isinstance(path, basestring)
+    assert isinstance(path, str)
 
 
 def test_EtcDirectory_win(mocker, tmp_path):

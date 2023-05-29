@@ -13,10 +13,8 @@ import pytest
 from polite.abc import abstractclassmethod
 
 #pylint: disable=C0111,R0903
-class ClassBase(object):
+class ClassBase(object, metaclass=abc.ABCMeta):
 
-    __metaclass__ = abc.ABCMeta
-    
     @abstractclassmethod
     def test(cls):
         """Test method"""
