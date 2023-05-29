@@ -6,5 +6,6 @@ dependencies:
   - python=3.11
   - configobj
   - pytest
+  - pytest-cov
   - pytest-mock
   - pyyaml

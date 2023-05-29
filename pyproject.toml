@@ -32,5 +32,14 @@ tests = [
 "Homepage" = "https://github.com/DTOcean/polite"
 "Bug Tracker" = "https://github.com/DTOcean/polite/issues"
 
+[tool.coverage.run]
+branch = true
+omit = [
+    "src/polite/appdirs.py" # omit appdirs as developed externally
+]
+source = [
+    "src"
+]
+
 [tool.setuptools.dynamic]
 version = {attr = "polite.__version__"}

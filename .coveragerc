@@ -1,6 +1,0 @@
-# .coveragerc to control coverage.py
-[run]
-branch = True
-omit =
-    # omit appdirs as developed externally
-    polite/appdirs.py
